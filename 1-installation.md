@@ -2,6 +2,10 @@ MongoDb
 > Database best used for unstructured data
 > Can be use for structured as well data
 
+
+Extension
+> vscode-icons
+
 Sql
 
 RollNo | Hindi | English| Computer |
