@@ -170,3 +170,165 @@ db.collection.update(
     <condition>
     <what you want to update>
 )
+
+db.hotels.update(
+    {_id:"2"},
+    {
+        $set:{
+            cost:"4500"
+        }
+    }
+)
+
+db.hotels.update(
+    {_id:"2"},
+    {
+        $set:{
+            "type.1.name":"Premium Rooms"
+        }
+    }
+)
+
+
+db.hotels.find({"type.name":"Premiere Rooms"}).count()
+
+
+db.hotels.update(
+    {"type.name":"Premiere Rooms"},
+    {
+        $set:{
+            "type.$.name":"Premium Rooms"
+        }
+    },
+    {
+        multi:true
+    }
+)
+
+
+db.hotels.update(
+    {_id:"1"},
+    {
+        $mul:{cost:2}
+    }
+)
+
+db.hotels.update(
+    {_id:"1"},
+    {
+        $unset:{
+            "type.1.name":"",
+            "type.1.roomtype":""
+        }
+    }
+)
+
+db.hotels.update(
+    {_id:"1"},
+    {
+        $unset:{
+            "type.1":""
+        }
+    }
+)
+
+db.hotels.updateOne( 
+    { _id: "1" }, 
+    { $pop: { type: 1 } } )
+
+
+
+var a = [5,8,3,6]
+a.pop()
+6
+a.pop()
+3
+
+db.hotels.updateOne( 
+    { _id: "1" }, 
+    { 
+        $push: { 
+            "type":{
+                "roomtype" : "4",
+			    "name" : "Semi Deluxe Room"
+            }
+        } 
+    } 
+)
+
+
+db.hotels.update(
+    {_id:"1"},
+    {
+        $unset:{
+            "locality":""
+        }
+    }
+)
+
+db.hotels.update(
+    {_id:"1"},
+    {
+        $set:{
+            "locality": "Aerocity, New Delhi",
+        }
+    }
+)
+
+db.hotels.update(
+    {_id:"21"},
+    {
+        $set:{
+            "name":"Uday Villas",
+            "Location":"Udaipur",
+            "Cost":"100000"
+        }
+    },
+    {
+        "upsert":true
+    }
+)
+
+db.hotels.insert(
+    {
+        _id:"22",
+        "name":"Taj Villas",
+        "Location":"Mumbai",
+        "Cost":"50000",
+        "date":new Date(Date.now())
+    }
+)
+
+	"date" : ISODate("2023-02-12T02:32:14.402Z")
+    	"date" : ISODate("2023-02-12T02:32:14.402Z"),
+
+db.hotels.update(
+    {_id:"22"},
+    {
+        "$set":{"Rating":"5 star"},
+        $setOnInsert:{dateAdded:new Date()}
+    },
+    {
+        upsert:true
+    }
+)
+
+////////////Delete/////////
+db.hotels.delete({_id:"21"})
+db.hotels.remove({_id:"21"})
+
+db.hotels.deleteMany({city:"Delhi"})
+
+// remove particular record
+db.hotels.remove({_id:"20"})
+db.hotels.remove({_id:"22"})
+
+// remove all records
+db.hotels.remove({})
+
+//delete collection
+db.hotels.drop()
+
+// delete database
+use dbname
+db.dropDatabase()
