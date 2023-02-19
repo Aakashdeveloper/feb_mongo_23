@@ -15,6 +15,8 @@ sudo mongod --shardsvr --dbpath data/shard2 --port 2002
 
 sudo mongod --shardsvr --dbpath data/shard3 --port 2003
 
+sudo mongod --shardsvr --dbpath data/shard4 --port 2004
+
 //Config Server
 sudo mkdir data/config1
 sudo mkdir data/config2
@@ -38,10 +40,10 @@ rs.initiate(
 )
 
 //New Cmd
-mongos --configdb "rs0/localhost:2011,localhost:2012,localhost:2013" --fork --logpath log.mongos0 --port 27200
+mongos --configdb "rs0/localhost:2011,localhost:2012,localhost:2013" --port 27201
 
 //Connection to mongos
-mongo --port 27200
+mongo --port 27201
 
 
 //Add shards
@@ -63,6 +65,8 @@ sh.enableSharding("mongoMart1")
 //enable on collection level
 sh.shardCollection("mongoMart1.shop1",{"_id":"hashed"})
 for (var i =1;i<=20;i++)db.shop1.insert({x:i})
+
+for (var i =42;i<=46;i++)db.shop1.insert({x:i})
 
 //remove shard
 use admin
